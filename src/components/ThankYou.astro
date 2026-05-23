@@ -1,0 +1,65 @@
+---
+import { wedding } from "../config/wedding.ts";
+---
+
+<section class="thank-you section" aria-label="Thank you">
+  <div class="thank-you__card container-narrow text-center">
+    <p class="eyebrow">{wedding.thankYou.heading}</p>
+    <h2 class="script thank-you__names">
+      {wedding.couple.one} &amp; {wedding.couple.two}
+    </h2>
+    <p class="thank-you__body">{wedding.thankYou.body}</p>
+    <span class="divider"></span>
+  </div>
+</section>
+
+<style>
+  .thank-you {
+    background:
+      radial-gradient(circle at 50% 100%, rgba(200, 162, 75, 0.16), transparent 70%),
+      var(--color-bg);
+    text-align: center;
+    padding-bottom: clamp(var(--space-9), 16vw, var(--space-10));
+  }
+
+  .thank-you__card {
+    padding: clamp(var(--space-7), 10vw, var(--space-9)) clamp(var(--space-5), 6vw, var(--space-7));
+    border-radius: var(--radius-lg);
+    background: var(--color-bg-deep);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .thank-you__names {
+    font-size: clamp(3rem, 9vw, 5.5rem);
+    color: var(--color-accent);
+    margin: var(--space-4) 0 var(--space-5);
+    line-height: 1;
+  }
+
+  .thank-you__body {
+    color: var(--color-ink-soft);
+    font-style: italic;
+    max-width: 28rem;
+    margin-inline: auto;
+  }
+</style>
+
+<script>
+  import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
+
+  function run() {
+    if (prefersReducedMotion()) return;
+    const { gsap } = getGsap();
+    gsap.from(".thank-you__card > *", {
+      scrollTrigger: { trigger: ".thank-you__card", start: "top 80%" },
+      opacity: 0,
+      y: 24,
+      duration: 0.9,
+      ease: "power3.out",
+      stagger: 0.12,
+    });
+  }
+
+  if (document.readyState !== "loading") run();
+  else document.addEventListener("DOMContentLoaded", run);
+</script>

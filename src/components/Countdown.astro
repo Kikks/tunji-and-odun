@@ -1,0 +1,210 @@
+---
+import { wedding } from "../config/wedding.ts";
+
+const venueIllustration = "/assets/venue-illustration.png";
+---
+
+<section class="countdown section" aria-label="Countdown and venue">
+  <div class="container text-center">
+    <h2 class="countdown__title">
+      <span class="script">Countdown</span>
+    </h2>
+
+    <div class="countdown__row" data-countdown data-target={wedding.dateISO}>
+      <div class="countdown__cell"><span data-unit="days">00</span><small>Days</small></div>
+      <div class="countdown__cell"><span data-unit="hours">00</span><small>Hours</small></div>
+      <div class="countdown__cell"><span data-unit="minutes">00</span><small>Min</small></div>
+      <div class="countdown__cell"><span data-unit="seconds">00</span><small>Sec</small></div>
+    </div>
+
+    <p class="countdown__caption">until the big day</p>
+
+    <p class="countdown__eyebrow" data-reveal>The celebration will take place at</p>
+
+    <div class="venue" data-reveal>
+      <img class="venue__art" src={venueIllustration} alt={wedding.venue.name} onerror="this.style.display='none'" />
+      <h3 class="venue__name script">{wedding.venue.name}</h3>
+      <p class="venue__address">{wedding.venue.address}</p>
+      <p class="venue__time">{wedding.dateDisplay.month} {wedding.dateDisplay.day}, {wedding.dateDisplay.year} · {wedding.venue.time}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .countdown {
+    background: var(--color-bg);
+    text-align: center;
+  }
+
+  .countdown__title {
+    font-size: clamp(2.75rem, 8vw, 4.5rem);
+    color: var(--color-accent);
+    margin-bottom: var(--space-6);
+    line-height: 1;
+  }
+
+  .countdown__row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(var(--space-2), 2vw, var(--space-4));
+    max-width: 28rem;
+    margin: 0 auto var(--space-4);
+  }
+
+  .countdown__cell {
+    background: transparent;
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    padding: var(--space-4) var(--space-1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    aspect-ratio: 1 / 1;
+    justify-content: center;
+  }
+
+  .countdown__cell span {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 6vw, 2.25rem);
+    font-weight: 500;
+    color: var(--color-accent);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .countdown__cell small {
+    font-family: var(--font-serif);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .countdown__caption {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-9);
+    font-size: clamp(0.85rem, 2vw, 1rem);
+  }
+
+  .countdown__eyebrow {
+    font-family: var(--font-serif);
+    font-size: clamp(0.7rem, 1.6vw, 0.85rem);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-5);
+    line-height: 1.6;
+    max-width: 22rem;
+    margin-inline: auto;
+  }
+
+  .venue {
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+
+  .venue__art {
+    max-width: 18rem;
+    width: 80%;
+    margin: 0 auto var(--space-5);
+    opacity: 0.95;
+  }
+
+  .venue__name {
+    font-size: clamp(2.25rem, 6vw, 3rem);
+    color: var(--color-accent);
+    margin-bottom: var(--space-3);
+    line-height: 1.1;
+  }
+
+  .venue__address {
+    font-family: var(--font-serif);
+    font-size: clamp(0.7rem, 1.6vw, 0.85rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-4);
+  }
+
+  .venue__time {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-accent);
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+    margin: 0;
+  }
+</style>
+
+<script>
+  import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
+
+  function pad(value: number) {
+    return value.toString().padStart(2, "0");
+  }
+
+  function run() {
+    const root = document.querySelector<HTMLElement>("[data-countdown]");
+    if (!root) return;
+
+    const targetISO = root.dataset.target;
+    if (!targetISO) return;
+    const target = new Date(targetISO).getTime();
+    if (Number.isNaN(target)) return;
+
+    const units = {
+      days: root.querySelector<HTMLElement>('[data-unit="days"]'),
+      hours: root.querySelector<HTMLElement>('[data-unit="hours"]'),
+      minutes: root.querySelector<HTMLElement>('[data-unit="minutes"]'),
+      seconds: root.querySelector<HTMLElement>('[data-unit="seconds"]'),
+    };
+
+    function render() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        units.days!.textContent = "00";
+        units.hours!.textContent = "00";
+        units.minutes!.textContent = "00";
+        units.seconds!.textContent = "00";
+        return false;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      units.days!.textContent = pad(days);
+      units.hours!.textContent = pad(hours);
+      units.minutes!.textContent = pad(minutes);
+      units.seconds!.textContent = pad(seconds);
+      return true;
+    }
+
+    render();
+    const timer = window.setInterval(() => {
+      if (!render()) window.clearInterval(timer);
+    }, 1000);
+
+    if (prefersReducedMotion()) return;
+    const { gsap } = getGsap();
+    gsap.from(root.closest(".countdown")!.querySelectorAll<HTMLElement>(".countdown__cell"), {
+      scrollTrigger: { trigger: root, start: "top 75%" },
+      opacity: 0,
+      y: 24,
+      stagger: 0.08,
+      duration: 0.8,
+      ease: "power3.out",
+    });
+    gsap.from(".countdown .venue [data-reveal], .countdown__eyebrow", {
+      scrollTrigger: { trigger: ".venue", start: "top 85%" },
+      opacity: 0,
+      y: 20,
+      duration: 0.9,
+      ease: "power3.out",
+    });
+  }
+
+  if (document.readyState !== "loading") run();
+  else document.addEventListener("DOMContentLoaded", run);
+</script>

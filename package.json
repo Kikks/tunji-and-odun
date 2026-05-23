@@ -1,0 +1,23 @@
+{
+  "name": "wedding-website",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@lucide/astro": "^1.16.0",
+    "astro": "^4.16.18",
+    "canvas-confetti": "^1.9.3",
+    "gsap": "^3.12.5"
+  },
+  "devDependencies": {
+    "@types/canvas-confetti": "^1.9.0",
+    "typescript": "^5.7.2"
+  }
+}

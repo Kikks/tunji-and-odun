@@ -1,0 +1,191 @@
+---
+import { wedding } from "../config/wedding.ts";
+
+const curtainOpenImage = "/assets/curtain-open.jpg";
+---
+
+<section class="invitation" aria-label="Invitation">
+  <img class="invitation__backdrop" src={curtainOpenImage} alt="" aria-hidden="true" fetchpriority="high" />
+
+  <div class="container-narrow text-center invitation__inner">
+    <p class="invitation__eyebrow" data-reveal>You are cordially invited to celebrate the wedding of</p>
+    <h1 class="invitation__names" data-reveal>
+      <span class="script">{wedding.couple.one}</span>
+      <span class="invitation__amp script">&amp;</span>
+      <span class="script">{wedding.couple.two}</span>
+    </h1>
+    <p class="invitation__copy" data-reveal>{wedding.invitationCopy}</p>
+  </div>
+
+  <div class="invitation__scroll-wrap" aria-hidden="true" data-reveal>
+    <div class="invitation__scroll">
+      <span class="invitation__scroll-label">Scroll</span>
+      <svg class="invitation__scroll-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="4" x2="12" y2="20"></line>
+        <polyline points="6 14 12 20 18 14"></polyline>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  .invitation {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: clamp(var(--space-7), 10vw, var(--space-9)) clamp(var(--space-4), 5vw, var(--space-7));
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+
+  .invitation__backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+
+  /* Raise the text above the Curtain overlay (z-index: 50) so it can animate
+     in while the video is still playing. Backdrop stays below the overlay
+     and gets its own animation once the overlay fades.
+     pointer-events: none so the static text doesn't block clicks on the
+     curtain's "Tap to continue" nudge underneath. */
+  .invitation__inner {
+    position: relative;
+    z-index: 60;
+    color: var(--color-accent);
+    pointer-events: none;
+  }
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .invitation__eyebrow {
+    font-family: var(--font-serif);
+    font-size: clamp(0.62rem, 1.5vw, 0.78rem);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 var(--space-5);
+    line-height: 1.55;
+    max-width: 22rem;
+    margin-inline: auto;
+  }
+
+  .invitation__names {
+    font-size: clamp(3.25rem, 11vw, 6rem);
+    line-height: 1;
+    margin: 0 0 var(--space-6);
+    color: var(--color-accent);
+    display: flex;
+    flex-direction: column;
+    gap: 0.02em;
+    align-items: center;
+  }
+
+  .invitation__amp {
+    font-size: 0.5em;
+    font-weight: 400;
+    opacity: 0.9;
+    margin: 0.05em 0;
+  }
+
+  .invitation__copy {
+    font-family: var(--font-serif);
+    font-size: clamp(0.68rem, 1.7vw, 0.8rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    line-height: 1.9;
+    max-width: 24rem;
+    margin-inline: auto;
+  }
+
+  .invitation__scroll-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: clamp(1.5rem, 5vw, 2.5rem);
+    z-index: 60;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .invitation__scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-accent);
+    animation: invitation-levitate 2.4s ease-in-out infinite;
+  }
+
+  .invitation__scroll-label {
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+
+  .invitation__scroll-arrow {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  @keyframes invitation-levitate {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .invitation__scroll {
+      animation: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .invitation__names {
+      font-size: clamp(5rem, 12vw, 9rem);
+    }
+  }
+</style>
+
+<script>
+  import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
+
+  function run() {
+    const reduce = prefersReducedMotion();
+    const { gsap } = getGsap();
+    const targets = document.querySelectorAll<HTMLElement>(".invitation [data-reveal]");
+
+    if (reduce) {
+      gsap.set(targets, { opacity: 1, y: 0 });
+      return;
+    }
+
+    // Text animates in during video playback, above the curtain overlay.
+    // Backdrop is static — it's revealed simply by the curtain overlay
+    // fading out at the end of the video.
+    const revealText = () => {
+      gsap.to(targets, {
+        opacity: 1,
+        y: 0,
+        duration: 1.1,
+        ease: "power3.out",
+        stagger: 0.1,
+      });
+    };
+
+    window.addEventListener("wedding:curtain-click", revealText, { once: true });
+  }
+
+  if (document.readyState !== "loading") run();
+  else document.addEventListener("DOMContentLoaded", run);
+</script>

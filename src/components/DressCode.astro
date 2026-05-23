@@ -1,0 +1,83 @@
+---
+import { wedding } from "../config/wedding.ts";
+---
+
+<section class="dress-code section" aria-label="Dress code">
+  <div class="container-narrow text-center">
+    <p class="eyebrow">What to wear</p>
+    <h2>{wedding.dressCode.title}</h2>
+    <span class="divider"></span>
+    <p class="dress-code__desc">{wedding.dressCode.description}</p>
+
+    <ul class="dress-code__palette" aria-label="Suggested palette">
+      {wedding.dressCode.palette.map((hex) => (
+        <li style={`--swatch:${hex}`} title={hex}></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .dress-code {
+    background: var(--color-bg);
+    text-align: center;
+  }
+
+  .dress-code__desc {
+    color: var(--color-ink-soft);
+    font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+    max-width: 32rem;
+    margin-inline: auto;
+    font-style: italic;
+  }
+
+  .dress-code__palette {
+    list-style: none;
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    padding: 0;
+    margin: var(--space-6) 0 0;
+  }
+
+  .dress-code__palette li {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-full);
+    background: var(--swatch);
+    box-shadow: var(--shadow-sm), inset 0 0 0 2px rgba(255, 255, 255, 0.4);
+    transition: transform 0.35s var(--ease-out);
+  }
+
+  .dress-code__palette li:hover {
+    transform: translateY(-4px) scale(1.05);
+  }
+
+  @media (min-width: 640px) {
+    .dress-code__palette li {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+  }
+</style>
+
+<script>
+  import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
+
+  function run() {
+    if (prefersReducedMotion()) return;
+    const { gsap } = getGsap();
+    gsap.from(".dress-code__palette li", {
+      scrollTrigger: { trigger: ".dress-code__palette", start: "top 85%" },
+      opacity: 0,
+      y: 16,
+      scale: 0.8,
+      duration: 0.6,
+      ease: "back.out(1.6)",
+      stagger: 0.08,
+    });
+  }
+
+  if (document.readyState !== "loading") run();
+  else document.addEventListener("DOMContentLoaded", run);
+</script>

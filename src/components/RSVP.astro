@@ -1,0 +1,91 @@
+---
+import { wedding } from "../config/wedding.ts";
+---
+
+<section class="rsvp section" aria-label="RSVP">
+  <div class="container-narrow text-center">
+    <p class="eyebrow">Will you join us?</p>
+    <h2>Confirm attendance</h2>
+    <span class="divider"></span>
+    <p class="rsvp__copy">
+      Please let us know whether you will be attending by filling out the short form below.
+    </p>
+
+    <a
+      class="rsvp__button"
+      href={wedding.rsvpFormUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-reveal
+    >
+      Confirm my attendance
+    </a>
+  </div>
+</section>
+
+<style>
+  .rsvp {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    text-align: center;
+  }
+
+  .rsvp .eyebrow,
+  .rsvp :global(.eyebrow) {
+    color: var(--color-gold-soft);
+  }
+
+  .rsvp h2 {
+    color: var(--color-bg);
+  }
+
+  .rsvp__copy {
+    color: rgba(248, 241, 228, 0.85);
+    max-width: 32rem;
+    margin: 0 auto var(--space-6);
+    font-style: italic;
+  }
+
+  .rsvp__button {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: var(--space-4) var(--space-6);
+    border: 1px solid var(--color-gold);
+    border-radius: var(--radius-full);
+    color: var(--color-gold-soft);
+    background: transparent;
+    transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out), transform 0.2s var(--ease-out);
+  }
+
+  .rsvp__button:hover {
+    background: var(--color-gold);
+    color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .rsvp :global(.divider) {
+    background: var(--color-gold-soft);
+  }
+</style>
+
+<script>
+  import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
+
+  function run() {
+    if (prefersReducedMotion()) return;
+    const { gsap } = getGsap();
+    gsap.from(".rsvp__button", {
+      scrollTrigger: { trigger: ".rsvp", start: "top 75%" },
+      opacity: 0,
+      y: 20,
+      duration: 0.8,
+      ease: "power3.out",
+    });
+  }
+
+  if (document.readyState !== "loading") run();
+  else document.addEventListener("DOMContentLoaded", run);
+</script>

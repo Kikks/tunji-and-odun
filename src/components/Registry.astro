@@ -1,0 +1,155 @@
+---
+import { wedding } from "../config/wedding.ts";
+---
+
+<section class="registry section" aria-label="Registry">
+  <div class="container-narrow text-center">
+    <p class="eyebrow">Registry</p>
+    <h2 class="script registry__heading">With all our love</h2>
+    <span class="divider"></span>
+    <p class="registry__message">{wedding.registry.message}</p>
+
+    <div class="registry__card">
+      <dl>
+        <div class="registry__row">
+          <dt>Account holder</dt>
+          <dd>{wedding.registry.accountHolder}</dd>
+        </div>
+        <div class="registry__row">
+          <dt>IBAN</dt>
+          <dd class="registry__iban">
+            <span id="iban-value">{wedding.registry.iban}</span>
+            <button type="button" class="registry__copy" id="copy-iban" aria-label="Copy IBAN">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span class="registry__copy-label">Copy</span>
+            </button>
+          </dd>
+        </div>
+        <div class="registry__row">
+          <dt>Reference</dt>
+          <dd>{wedding.registry.reference}</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .registry {
+    background: var(--color-bg-deep);
+    text-align: center;
+  }
+
+  .registry__heading {
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+  }
+
+  .registry__message {
+    color: var(--color-ink-soft);
+    font-style: italic;
+    max-width: 34rem;
+    margin: 0 auto var(--space-6);
+  }
+
+  .registry__card {
+    background: var(--color-bg);
+    border-radius: var(--radius-lg);
+    padding: clamp(var(--space-5), 5vw, var(--space-7));
+    box-shadow: var(--shadow-md);
+    text-align: left;
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+
+  .registry__card dl {
+    margin: 0;
+    display: grid;
+    gap: var(--space-5);
+  }
+
+  .registry__row {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .registry__row dt {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .registry__row dd {
+    margin: 0;
+    font-size: 1.125rem;
+    color: var(--color-ink);
+    word-break: break-all;
+  }
+
+  .registry__iban {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+
+  .registry__copy {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-full);
+    background: var(--color-accent);
+    color: var(--color-bg);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: transform 0.2s var(--ease-out), background 0.2s var(--ease-out);
+  }
+
+  .registry__copy:hover {
+    background: var(--color-accent-soft);
+    transform: translateY(-1px);
+  }
+
+  .registry__copy.is-copied {
+    background: var(--color-gold);
+    color: var(--color-ink);
+  }
+</style>
+
+<script>
+  function run() {
+    const button = document.getElementById("copy-iban");
+    const value = document.getElementById("iban-value");
+    const label = button?.querySelector<HTMLElement>(".registry__copy-label");
+    if (!button || !value || !label) return;
+
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(value.textContent?.trim() ?? "");
+        button.classList.add("is-copied");
+        label.textContent = "Copied";
+        window.setTimeout(() => {
+          button.classList.remove("is-copied");
+          label.textContent = "Copy";
+        }, 1800);
+      } catch {
+        label.textContent = "Press ⌘C";
+      }
+    });
+  }
+
+  if (document.readyState !== "loading") run();
+  else document.addEventListener("DOMContentLoaded", run);
+</script>
