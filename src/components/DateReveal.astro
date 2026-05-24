@@ -3,356 +3,312 @@ import { Hand } from "@lucide/astro";
 import { wedding } from "../config/wedding.ts";
 
 const items = [
-  { key: "day", value: wedding.dateDisplay.day, label: "Day" },
-  { key: "month", value: wedding.dateDisplay.month, label: "Month" },
-  { key: "year", value: wedding.dateDisplay.year, label: "Year" },
+	{ key: "day", value: wedding.dateDisplay.day, label: "Day" },
+	{ key: "month", value: wedding.dateDisplay.month, label: "Month" },
+	{ key: "year", value: wedding.dateDisplay.year, label: "Year" }
 ];
 ---
 
-<section class="date-reveal section" id="date-reveal" aria-label="Wedding date">
-  <div class="container text-center">
-    <div class="date-reveal__hint" aria-hidden="true">
-      <span class="date-reveal__hint-ring">
-        <Hand />
-      </span>
-      <p class="date-reveal__hint-copy">Scratch all three circles to continue</p>
-    </div>
+<section
+	class='date-reveal section bg-bg-deep text-center grid content-center'
+	id='date-reveal'
+	aria-label='Wedding date'
+>
+	<div class='container text-center'>
+		<div
+			class='date-reveal__hint flex flex-col items-center gap-3 mb-12'
+			aria-hidden='true'
+		>
+			<span
+				class='date-reveal__hint-ring relative w-10 h-10 rounded-full border border-accent grid place-items-center text-accent bg-accent/10'
+			>
+				<Hand />
+			</span>
+			<p
+				class='date-reveal__hint-copy font-serif text-[0.78rem] italic text-accent m-0'
+			>
+				Scratch all three circles to continue
+			</p>
+		</div>
 
-    <h2 class="date-reveal__title">
-      <span class="script">Reveal</span>
-    </h2>
-    <p class="date-reveal__subtitle">Scratch to discover the date</p>
+		<h2 class='date-reveal__title text-accent mb-3 leading-none'>
+			<span class='script'>Reveal</span>
+		</h2>
+		<p
+			class='date-reveal__subtitle text-lg font-serif uppercase font-bold text-accent m-0 mb-12'
+		>
+			Scratch to discover the date
+		</p>
 
-    <div class="date-reveal__row">
-      {items.map((item) => (
-        <div class="date-card">
-          <div class="date-card__inner">
-            <span class="date-card__value">{item.value}</span>
-          </div>
-          <canvas class="date-card__canvas" data-scratch={item.key} aria-label={`Scratch to reveal ${item.label.toLowerCase()}`}></canvas>
-        </div>
-      ))}
-    </div>
+		<div
+			class='date-reveal__row grid grid-cols-3 gap-5 w-full max-w-90 mx-auto justify-items-center'
+		>
+			{
+				items.map(item => (
+					<div class='date-card w-28 h-28 relative aspect-square rounded-full bg-white shadow-md overflow-hidden'>
+						<div class='date-card__inner absolute inset-0 grid place-items-center text-center p-2'>
+							<span class='date-card__value font-serif font-medium text-accent leading-none text-4xl'>
+								{item.value}
+							</span>
+						</div>
+						<canvas
+							class='date-card__canvas absolute inset-0 w-full h-full touch-none cursor-grab'
+							data-scratch={item.key}
+							aria-label={`Scratch to reveal ${item.label.toLowerCase()}`}
+						/>
+					</div>
+				))
+			}
+		</div>
 
-    <p class="date-reveal__message" id="date-message">
-      <span class="script">We're getting married!</span>
-    </p>
-  </div>
+		<p class='date-reveal__message text-accent mt-10!' id='date-message'>
+			<span class='script'>We're getting married!</span>
+		</p>
+	</div>
 </section>
 
 <style>
-  .date-reveal {
-    background: var(--color-bg-deep);
-    text-align: center;
-    min-height: 100vh;
-    min-height: 100svh;
-    display: grid;
-    align-content: center;
-  }
+	/* svh fallback for the full-bleed section. */
+	.date-reveal {
+		min-height: 100vh;
+		min-height: 100svh;
+	}
 
-  .date-reveal__hint {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-3);
-    margin-bottom: var(--space-7);
-  }
+	/* Pseudo-element ripple rings — Tailwind has no expressive ::before/::after
+     utility, and these are paired with a custom @keyframes anyway. */
+	.date-reveal__hint-ring :global(svg) {
+		width: 1.1rem;
+		height: 1.1rem;
+	}
 
-  .date-reveal__hint-ring {
-    position: relative;
-    width: 3rem;
-    height: 3rem;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--color-accent);
-    display: grid;
-    place-items: center;
-    color: var(--color-accent);
-    background: transparent;
-  }
+	.date-reveal__hint-ring::before,
+	.date-reveal__hint-ring::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: var(--radius-full);
+		border: 1px solid var(--color-accent);
+		opacity: 0;
+	}
 
-  .date-reveal__hint-ring :global(svg) {
-    width: 1.1rem;
-    height: 1.1rem;
-  }
+	@media (prefers-reduced-motion: no-preference) {
+		.date-reveal__hint-ring::before {
+			animation: hint-ring 2.2s ease-out infinite;
+		}
+		.date-reveal__hint-ring::after {
+			animation: hint-ring 2.2s ease-out infinite 1.1s;
+		}
+	}
 
-  .date-reveal__hint-ring::before,
-  .date-reveal__hint-ring::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--color-accent);
-    opacity: 0;
-  }
+	@keyframes hint-ring {
+		0% {
+			transform: scale(1);
+			opacity: 0.55;
+		}
+		100% {
+			transform: scale(1.9);
+			opacity: 0;
+		}
+	}
 
-  @media (prefers-reduced-motion: no-preference) {
-    .date-reveal__hint-ring::before {
-      animation: hint-ring 2.2s ease-out infinite;
-    }
-    .date-reveal__hint-ring::after {
-      animation: hint-ring 2.2s ease-out infinite 1.1s;
-    }
-  }
+	/* Fluid sizing — clamp() not expressible as utility. */
+	.date-reveal__title {
+		font-size: clamp(2.5rem, 7vw, 4rem);
+	}
 
-  @keyframes hint-ring {
-    0% { transform: scale(1); opacity: 0.55; }
-    100% { transform: scale(1.9); opacity: 0; }
-  }
+	.date-reveal__message {
+		font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+		/* GSAP from-state: it tweens to opacity 1, y 0 on finishReveal. */
+		opacity: 0;
+		transform: translateY(16px);
+	}
 
-  .date-reveal__hint-copy {
-    font-family: var(--font-serif);
-    font-size: 0.78rem;
-    font-style: italic;
-    color: var(--color-accent);
-    margin: 0;
-  }
+	/* Card width + state machine + multi-property reveal transition stay coupled. */
+	.date-card {
+		opacity: 0;
+		transform: scale(0);
+	}
 
-  .date-reveal__title {
-    font-size: clamp(2.5rem, 7vw, 4rem);
-    color: var(--color-accent);
-    margin-bottom: var(--space-3);
-    line-height: 1;
-  }
+	.date-card.is-in {
+		opacity: 1;
+		transform: scale(1);
+		transition:
+			opacity 0.6s var(--ease-out),
+			transform 0.6s var(--ease-bounce);
+	}
 
-  .date-reveal__subtitle {
-    font-family: var(--font-serif);
-    font-size: clamp(0.7rem, 1.6vw, 0.85rem);
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin: 0 0 var(--space-7);
-  }
+	.date-card__canvas {
+		transition:
+			opacity 0.55s var(--ease-out),
+			filter 0.55s var(--ease-out),
+			transform 0.55s var(--ease-out);
+	}
 
-  .date-reveal__message {
-    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
-    color: var(--color-accent);
-    margin-top: var(--space-7);
-    opacity: 0;
-    transform: translateY(16px);
-  }
+	.date-card__canvas:active {
+		cursor: grabbing;
+	}
 
-  .date-reveal__row {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(var(--space-3), 3vw, var(--space-5));
-    max-width: 24rem;
-    margin-inline: auto;
-    justify-items: center;
-  }
+	.date-card.is-revealed .date-card__canvas {
+		opacity: 0;
+		filter: blur(6px);
+		transform: scale(1.08);
+		pointer-events: none;
+	}
 
-  .date-card {
-    position: relative;
-    width: clamp(4.5rem, 18vw, 6.5rem);
-    aspect-ratio: 1 / 1;
-    border-radius: var(--radius-full);
-    background: #fff;
-    box-shadow: var(--shadow-md);
-    overflow: hidden;
-    opacity: 0;
-    transform: scale(0);
-  }
+	.date-card.is-revealed {
+		animation: date-card-pop 0.6s var(--ease-bounce);
+	}
 
-  .date-card.is-in {
-    opacity: 1;
-    transform: scale(1);
-    transition:
-      opacity 0.6s var(--ease-out),
-      transform 0.6s var(--ease-bounce);
-  }
-
-  .date-card__inner {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    text-align: center;
-    padding: var(--space-2);
-  }
-
-  .date-card__value {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    color: var(--color-accent);
-    font-size: clamp(1rem, 3.5vw, 1.75rem);
-    line-height: 1;
-  }
-
-  .date-card__canvas {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    touch-action: none;
-    cursor: grab;
-    transition: opacity 0.55s var(--ease-out), filter 0.55s var(--ease-out),
-      transform 0.55s var(--ease-out);
-  }
-
-  .date-card__canvas:active {
-    cursor: grabbing;
-  }
-
-  .date-card.is-revealed .date-card__canvas {
-    opacity: 0;
-    filter: blur(6px);
-    transform: scale(1.08);
-    pointer-events: none;
-  }
-
-  .date-card.is-revealed {
-    animation: date-card-pop 0.6s var(--ease-bounce);
-  }
-
-  @keyframes date-card-pop {
-    0% {
-      transform: scale(1);
-    }
-    40% {
-      transform: scale(1.07);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
+	@keyframes date-card-pop {
+		0% {
+			transform: scale(1);
+		}
+		40% {
+			transform: scale(1.07);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
 </style>
 
 <script>
-  import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
-  import { initScratch } from "../lib/scratch.ts";
-  import { fireCelebration } from "../lib/confetti.ts";
+	import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
+	import { initScratch } from "../lib/scratch.ts";
+	import { fireCelebration } from "../lib/confetti.ts";
 
-  function run() {
-    const section = document.getElementById("date-reveal");
-    const message = document.getElementById("date-message");
-    if (!section || !message) return;
+	function run() {
+		const section = document.getElementById("date-reveal");
+		const message = document.getElementById("date-message");
+		if (!section || !message) return;
 
-    const canvases = Array.from(
-      section.querySelectorAll<HTMLCanvasElement>("canvas[data-scratch]"),
-    );
-    if (canvases.length === 0) return;
+		const canvases = Array.from(
+			section.querySelectorAll<HTMLCanvasElement>("canvas[data-scratch]")
+		);
+		if (canvases.length === 0) return;
 
-    const reduce = prefersReducedMotion();
-    const { gsap, ScrollTrigger } = getGsap();
+		const reduce = prefersReducedMotion();
+		const { gsap, ScrollTrigger } = getGsap();
 
-    let locked = false;
-    let completedCount = 0;
-    let unlocked = false;
+		let locked = false;
+		let completedCount = 0;
+		let unlocked = false;
 
-    const lockScroll = () => {
-      if (locked || unlocked) return;
-      locked = true;
-      document.documentElement.classList.add("is-scroll-locked");
-      document.body.classList.add("is-scroll-locked");
-    };
+		const lockScroll = () => {
+			if (locked || unlocked) return;
+			locked = true;
+			document.documentElement.classList.add("is-scroll-locked");
+			document.body.classList.add("is-scroll-locked");
+		};
 
-    const unlockScroll = () => {
-      if (!locked) return;
-      locked = false;
-      document.documentElement.classList.remove("is-scroll-locked");
-      document.body.classList.remove("is-scroll-locked");
-    };
+		const unlockScroll = () => {
+			if (!locked) return;
+			locked = false;
+			document.documentElement.classList.remove("is-scroll-locked");
+			document.body.classList.remove("is-scroll-locked");
+		};
 
-    const showMessage = () => {
-      if (reduce) {
-        gsap.set(message, { opacity: 1, y: 0 });
-        return;
-      }
-      gsap.to(message, {
-        opacity: 1,
-        y: 0,
-        duration: 1.8,
-        ease: "power3.out",
-      });
-    };
+		const showMessage = () => {
+			if (reduce) {
+				gsap.set(message, { opacity: 1, y: 0 });
+				return;
+			}
+			gsap.to(message, {
+				opacity: 1,
+				y: 0,
+				duration: 1.8,
+				ease: "power3.out"
+			});
+		};
 
-    const finishReveal = () => {
-      if (unlocked) return;
-      unlocked = true;
-      showMessage();
-      if (!reduce) {
-        try {
-          fireCelebration();
-        } catch (err) {
-          console.error("confetti failed", err);
-        }
-      }
-      // Release the scroll lock slightly after the reveal animation kicks in.
-      window.setTimeout(unlockScroll, 400);
-    };
+		const finishReveal = () => {
+			if (unlocked) return;
+			unlocked = true;
+			showMessage();
+			if (!reduce) {
+				try {
+					fireCelebration();
+				} catch (err) {
+					console.error("confetti failed", err);
+				}
+			}
+			// Release the scroll lock slightly after the reveal animation kicks in.
+			window.setTimeout(unlockScroll, 400);
+		};
 
-    const markOneRevealed = (parent: HTMLElement | null) => {
-      parent?.classList.add("is-revealed");
-      completedCount++;
-      if (completedCount >= canvases.length) {
-        finishReveal();
-      }
-    };
+		const markOneRevealed = (parent: HTMLElement | null) => {
+			parent?.classList.add("is-revealed");
+			completedCount++;
+			if (completedCount >= canvases.length) {
+				finishReveal();
+			}
+		};
 
-    canvases.forEach((canvas) => {
-      const parent = canvas.parentElement as HTMLElement | null;
-      const destroy = initScratch(canvas, {
-        threshold: 0.8,
-        brushRadius: 30,
-        onReveal: () => markOneRevealed(parent),
-      });
-      if (reduce) {
-        destroy();
-        markOneRevealed(parent);
-      }
-    });
+		canvases.forEach(canvas => {
+			const parent = canvas.parentElement as HTMLElement | null;
+			const destroy = initScratch(canvas, {
+				threshold: 0.8,
+				brushRadius: 30,
+				onReveal: () => markOneRevealed(parent)
+			});
+			if (reduce) {
+				destroy();
+				markOneRevealed(parent);
+			}
+		});
 
-    // Wait until the section is fully in view (its top at the viewport top)
-    // before locking — so the cards are visible and ready to scratch.
-    // Unlock is driven solely by finishReveal, not by scroll position.
-    const snapAndLock = () => {
-      if (unlocked || locked) return;
-      const rect = section.getBoundingClientRect();
-      if (Math.abs(rect.top) > 2) {
-        const y = window.scrollY + rect.top;
-        window.scrollTo({ top: y, behavior: "smooth" });
-        window.setTimeout(lockScroll, 420);
-      } else {
-        lockScroll();
-      }
-    };
+		// Wait until the section is fully in view (its top at the viewport top)
+		// before locking — so the cards are visible and ready to scratch.
+		// Unlock is driven solely by finishReveal, not by scroll position.
+		const snapAndLock = () => {
+			if (unlocked || locked) return;
+			const rect = section.getBoundingClientRect();
+			if (Math.abs(rect.top) > 2) {
+				const y = window.scrollY + rect.top;
+				window.scrollTo({ top: y, behavior: "smooth" });
+				window.setTimeout(lockScroll, 420);
+			} else {
+				lockScroll();
+			}
+		};
 
-    let cardsRevealed = false;
-    const revealCardsIn = () => {
-      if (cardsRevealed) return;
-      cardsRevealed = true;
-      const cards = section.querySelectorAll<HTMLElement>(".date-card");
-      cards.forEach((card, i) => {
-        window.setTimeout(() => card.classList.add("is-in"), 150 * i);
-      });
-    };
+		let cardsRevealed = false;
+		const revealCardsIn = () => {
+			if (cardsRevealed) return;
+			cardsRevealed = true;
+			const cards = section.querySelectorAll<HTMLElement>(".date-card");
+			cards.forEach((card, i) => {
+				window.setTimeout(() => card.classList.add("is-in"), 150 * i);
+			});
+		};
 
-    if (reduce) {
-      section
-        .querySelectorAll<HTMLElement>(".date-card")
-        .forEach((card) => card.classList.add("is-in"));
-    } else {
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top 75%",
-        onEnter: revealCardsIn,
-        onEnterBack: revealCardsIn,
-      });
-    }
+		if (reduce) {
+			section
+				.querySelectorAll<HTMLElement>(".date-card")
+				.forEach(card => card.classList.add("is-in"));
+		} else {
+			ScrollTrigger.create({
+				trigger: section,
+				start: "top 75%",
+				onEnter: revealCardsIn,
+				onEnterBack: revealCardsIn
+			});
+		}
 
-    ScrollTrigger.create({
-      trigger: section,
-      start: "top top",
-      onEnter: () => {
-        snapAndLock();
-        revealCardsIn();
-      },
-      onEnterBack: () => {
-        snapAndLock();
-        revealCardsIn();
-      },
-    });
-  }
+		ScrollTrigger.create({
+			trigger: section,
+			start: "top top",
+			onEnter: () => {
+				snapAndLock();
+				revealCardsIn();
+			},
+			onEnterBack: () => {
+				snapAndLock();
+				revealCardsIn();
+			}
+		});
+	}
 
-  if (document.readyState !== "loading") run();
-  else document.addEventListener("DOMContentLoaded", run);
+	if (document.readyState !== "loading") run();
+	else document.addEventListener("DOMContentLoaded", run);
 </script>

@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "@lucide/astro": "^1.16.0",
+    "@tailwindcss/vite": "^4.3.0",
     "astro": "^4.16.18",
     "canvas-confetti": "^1.9.3",
-    "gsap": "^3.12.5"
+    "gsap": "^3.12.5",
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "@types/canvas-confetti": "^1.9.0",

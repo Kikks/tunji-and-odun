@@ -1,101 +1,85 @@
 ---
+import { Volume2, VolumeX } from "@lucide/astro";
 ---
 
-<button class="audio-toggle" id="audio-toggle" type="button" aria-label="Toggle background music" data-state="paused" data-armed="false" hidden>
-  <span class="audio-toggle__icon audio-toggle__icon--on" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-    </svg>
-  </span>
-  <span class="audio-toggle__icon audio-toggle__icon--off" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <line x1="23" y1="9" x2="17" y2="15"></line>
-      <line x1="17" y1="9" x2="23" y2="15"></line>
-    </svg>
-  </span>
+<button
+	class='audio-toggle fixed w-14 h-14 rounded-full bg-white! text-accent border-2! border-accent! grid place-items-center shadow-sm z-70 opacity-0 scale-[0.85] hover:bg-bg'
+	id='audio-toggle'
+	type='button'
+	aria-label='Toggle background music'
+	data-state='paused'
+	data-armed='false'
+	hidden
+>
+	<span
+		class='audio-toggle__icon audio-toggle__icon--on absolute inset-0 grid place-items-center transition-opacity duration-200 ease-out'
+		aria-hidden='true'
+	>
+		<Volume2 class='text-accent' />
+	</span>
+	<span
+		class='audio-toggle__icon audio-toggle__icon--off absolute inset-0 grid place-items-center transition-opacity duration-200 ease-out'
+		aria-hidden='true'
+	>
+		<VolumeX class='text-accent' />
+	</span>
 </button>
 
 <style>
-  .audio-toggle {
-    position: fixed;
-    bottom: calc(clamp(1.25rem, 4vw, 1.75rem) + env(safe-area-inset-bottom, 0px));
-    right: calc(clamp(1.25rem, 4vw, 1.75rem) + env(safe-area-inset-right, 0px));
-    width: 3rem;
-    height: 3rem;
-    border-radius: var(--radius-full);
-    background: #ffffff;
-    color: var(--color-accent);
-    border: 1.5px solid var(--color-accent);
-    display: grid;
-    place-items: center;
-    box-shadow: var(--shadow-sm);
-    z-index: 70;
-    opacity: 0;
-    transform: scale(0.85);
-    transition: transform 0.3s var(--ease-out), background 0.25s var(--ease-out),
-      opacity 0.35s var(--ease-out);
-  }
+	/* Fluid positioning with env(safe-area-inset-*) — no utility equivalent. */
+	.audio-toggle {
+		bottom: calc(
+			clamp(1.25rem, 4vw, 1.75rem) + env(safe-area-inset-bottom, 0px)
+		);
+		right: calc(clamp(1.25rem, 4vw, 1.75rem) + env(safe-area-inset-right, 0px));
+		/* Per-property transition durations (transform 0.3s, bg 0.25s, opacity 0.35s). */
+		transition:
+			transform 0.3s var(--ease-out),
+			background 0.25s var(--ease-out),
+			opacity 0.35s var(--ease-out);
+	}
 
-  .audio-toggle[data-armed="true"] {
-    opacity: 1;
-    transform: scale(1);
-  }
+	.audio-toggle[data-armed="true"] {
+		opacity: 1;
+		transform: scale(1);
+	}
 
-  .audio-toggle:hover {
-    background: var(--color-bg);
-  }
-
-  .audio-toggle__icon {
-    position: absolute;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    transition: opacity 0.2s var(--ease-out);
-  }
-
-  .audio-toggle__icon svg {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-
-  .audio-toggle[data-state="paused"] .audio-toggle__icon--on,
-  .audio-toggle[data-state="playing"] .audio-toggle__icon--off {
-    opacity: 0;
-  }
+	/* Attribute-driven icon swap. */
+	.audio-toggle[data-state="paused"] .audio-toggle__icon--on,
+	.audio-toggle[data-state="playing"] .audio-toggle__icon--off {
+		opacity: 0;
+	}
 </style>
 
 <script>
-  import { audio, AUDIO_EVENT, type AudioState } from "../lib/audio.ts";
+	import { audio, AUDIO_EVENT, type AudioState } from "../lib/audio.ts";
 
-  function run() {
-    const button = document.getElementById("audio-toggle");
-    if (!button) return;
+	function run() {
+		const button = document.getElementById("audio-toggle");
+		if (!button) return;
 
-    button.addEventListener("click", () => {
-      audio.toggle();
-    });
+		button.addEventListener("click", () => {
+			audio.toggle();
+		});
 
-    window.addEventListener(AUDIO_EVENT, (event) => {
-      const state = (event as CustomEvent<AudioState>).detail;
-      button.dataset.state = state;
-    });
+		window.addEventListener(AUDIO_EVENT, event => {
+			const state = (event as CustomEvent<AudioState>).detail;
+			button.dataset.state = state;
+		});
 
-    window.addEventListener(
-      "wedding:curtain-open",
-      () => {
-        button.hidden = false;
-        // next frame so the transition can run from initial styles
-        requestAnimationFrame(() => {
-          button.dataset.armed = "true";
-        });
-      },
-      { once: true },
-    );
-  }
+		window.addEventListener(
+			"wedding:curtain-open",
+			() => {
+				button.hidden = false;
+				// next frame so the transition can run from initial styles
+				requestAnimationFrame(() => {
+					button.dataset.armed = "true";
+				});
+			},
+			{ once: true }
+		);
+	}
 
-  if (document.readyState !== "loading") run();
-  else document.addEventListener("DOMContentLoaded", run);
+	if (document.readyState !== "loading") run();
+	else document.addEventListener("DOMContentLoaded", run);
 </script>

@@ -2,62 +2,35 @@
 import { wedding } from "../config/wedding.ts";
 ---
 
-<section class="dress-code section" aria-label="Dress code">
+<section class="dress-code section bg-bg text-center" aria-label="Dress code">
   <div class="container-narrow text-center">
     <p class="eyebrow">What to wear</p>
     <h2>{wedding.dressCode.title}</h2>
     <span class="divider"></span>
-    <p class="dress-code__desc">{wedding.dressCode.description}</p>
+    <p class="dress-code__desc text-ink-soft max-w-lg mx-auto italic">
+      {wedding.dressCode.description}
+    </p>
 
-    <ul class="dress-code__palette" aria-label="Suggested palette">
+    <ul class="dress-code__palette list-none flex gap-4 justify-center p-0 mt-8 mb-0" aria-label="Suggested palette">
       {wedding.dressCode.palette.map((hex) => (
-        <li style={`--swatch:${hex}`} title={hex}></li>
+        <li
+          style={`--swatch:${hex}`}
+          title={hex}
+          class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[var(--swatch)] transition-transform duration-[350ms] ease-out hover:-translate-y-1 hover:scale-105"
+        ></li>
       ))}
     </ul>
   </div>
 </section>
 
 <style>
-  .dress-code {
-    background: var(--color-bg);
-    text-align: center;
-  }
-
   .dress-code__desc {
-    color: var(--color-ink-soft);
     font-size: clamp(1.05rem, 1.5vw, 1.2rem);
-    max-width: 32rem;
-    margin-inline: auto;
-    font-style: italic;
   }
 
-  .dress-code__palette {
-    list-style: none;
-    display: flex;
-    gap: var(--space-4);
-    justify-content: center;
-    padding: 0;
-    margin: var(--space-6) 0 0;
-  }
-
+  /* Composite shadow (outer + inset highlight) — keeping in CSS for readability. */
   .dress-code__palette li {
-    width: 3rem;
-    height: 3rem;
-    border-radius: var(--radius-full);
-    background: var(--swatch);
     box-shadow: var(--shadow-sm), inset 0 0 0 2px rgba(255, 255, 255, 0.4);
-    transition: transform 0.35s var(--ease-out);
-  }
-
-  .dress-code__palette li:hover {
-    transform: translateY(-4px) scale(1.05);
-  }
-
-  @media (min-width: 640px) {
-    .dress-code__palette li {
-      width: 3.5rem;
-      height: 3.5rem;
-    }
   }
 </style>
 

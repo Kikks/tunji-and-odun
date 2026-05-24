@@ -2,15 +2,21 @@
 import { wedding } from "../config/wedding.ts";
 ---
 
-<section class="directions section" aria-label="Directions">
+<section class="directions section bg-bg text-center" aria-label="Directions">
   <div class="container text-center">
     <p class="eyebrow">How to get there</p>
     <h2>{wedding.venue.name}</h2>
     <span class="divider"></span>
-    <p class="directions__notes">{wedding.directions.notes}</p>
+    <p class="directions__notes text-ink-soft italic max-w-xl mx-auto mb-8">
+      {wedding.directions.notes}
+    </p>
 
-    <div class="directions__map" data-reveal>
+    <div
+      class="directions__map relative w-full max-w-3xl aspect-[16/10] mx-auto mb-6 rounded-lg overflow-hidden shadow-lg bg-bg-deep"
+      data-reveal
+    >
       <iframe
+        class="absolute inset-0 w-full h-full border-0"
         src={wedding.venue.mapEmbedUrl}
         title={`Map to ${wedding.venue.name}`}
         loading="lazy"
@@ -19,62 +25,16 @@ import { wedding } from "../config/wedding.ts";
       ></iframe>
     </div>
 
-    <a class="directions__link" href={wedding.venue.mapLinkUrl} target="_blank" rel="noopener noreferrer">
+    <a
+      class="directions__link inline-block font-sans text-[0.8rem] tracking-[0.15em] uppercase py-3 px-6 border border-accent rounded-full transition-colors duration-200 ease-out hover:bg-accent hover:text-bg"
+      href={wedding.venue.mapLinkUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       Open in Google Maps ↗
     </a>
   </div>
 </section>
-
-<style>
-  .directions {
-    background: var(--color-bg);
-    text-align: center;
-  }
-
-  .directions__notes {
-    color: var(--color-ink-soft);
-    font-style: italic;
-    max-width: 36rem;
-    margin: 0 auto var(--space-6);
-  }
-
-  .directions__map {
-    position: relative;
-    width: 100%;
-    max-width: 48rem;
-    aspect-ratio: 16 / 10;
-    margin: 0 auto var(--space-5);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    background: var(--color-bg-deep);
-  }
-
-  .directions__map iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
-
-  .directions__link {
-    display: inline-block;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: var(--space-3) var(--space-5);
-    border: 1px solid var(--color-accent);
-    border-radius: var(--radius-full);
-    transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out);
-  }
-
-  .directions__link:hover {
-    background: var(--color-accent);
-    color: var(--color-bg);
-  }
-</style>
 
 <script>
   import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";

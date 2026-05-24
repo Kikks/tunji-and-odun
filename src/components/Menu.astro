@@ -2,19 +2,24 @@
 import { wedding } from "../config/wedding.ts";
 ---
 
-<section class="menu section" aria-label="Menu">
+<section class="menu section bg-bg-deep text-center" aria-label="Menu">
   <div class="container-narrow text-center">
     <p class="eyebrow">Dinner</p>
     <h2>Menu</h2>
     <span class="divider"></span>
 
-    <ol class="menu__list">
+    <ol class="menu__list list-none m-0 p-0 grid gap-6 text-left">
       {wedding.menu.map((item, i) => (
-        <li class="menu__item" data-reveal>
-          <span class="menu__index">{String(i + 1).padStart(2, "0")}</span>
+        <li
+          class="menu__item grid grid-cols-[auto_1fr] gap-4 items-baseline pb-4 border-b border-accent/15 last:border-b-0"
+          data-reveal
+        >
+          <span class="menu__index font-sans text-xs tracking-[0.2em] text-gold">
+            {String(i + 1).padStart(2, "0")}
+          </span>
           <div class="menu__body">
-            <h3 class="menu__title">{item.title}</h3>
-            <p class="menu__desc">{item.description}</p>
+            <h3 class="menu__title text-accent mb-2">{item.title}</h3>
+            <p class="menu__desc text-ink-soft italic m-0">{item.description}</p>
           </div>
         </li>
       ))}
@@ -23,50 +28,8 @@ import { wedding } from "../config/wedding.ts";
 </section>
 
 <style>
-  .menu {
-    background: var(--color-bg-deep);
-    text-align: center;
-  }
-
-  .menu__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: var(--space-5);
-    text-align: left;
-  }
-
-  .menu__item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-4);
-    align-items: baseline;
-    padding-bottom: var(--space-4);
-    border-bottom: 1px solid rgba(107, 30, 30, 0.15);
-  }
-
-  .menu__item:last-child {
-    border-bottom: none;
-  }
-
-  .menu__index {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--color-gold);
-  }
-
   .menu__title {
     font-size: clamp(1.25rem, 3vw, 1.625rem);
-    color: var(--color-accent);
-    margin-bottom: var(--space-2);
-  }
-
-  .menu__desc {
-    color: var(--color-ink-soft);
-    font-style: italic;
-    margin: 0;
   }
 </style>
 
