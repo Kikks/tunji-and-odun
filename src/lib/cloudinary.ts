@@ -16,7 +16,14 @@ export type GalleryPhoto = { src: string; alt: string };
 type CloudinarySearchResource = {
 	public_id: string;
 	created_at: string;
-	context?: { alt?: string; caption?: string; custom?: { alt?: string } };
+	context?: {
+		alt?: string;
+		caption?: string;
+		custom?: {
+			[x: string]: string | undefined;
+			alt?: string;
+		};
+	};
 };
 
 export async function getFolderPhotos(
