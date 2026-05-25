@@ -18,7 +18,7 @@ const curtainOpenImage = "/assets/curtain-open.jpg";
 	/>
 
 	<div
-		class='container-narrow text-center flex flex-col items-center relative z-60 text-accent pointer-events-none mt-40 md:p-0'
+		class='container-narrow text-center flex flex-col items-center relative z-60 text-accent pointer-events-none mt-40 md:mt-0'
 	>
 		<p
 			class='invitation__eyebrow font-serif uppercase text-accent font-medium mb-6 mx-auto max-w-[35ch] md:max-w-88'
@@ -36,7 +36,7 @@ const curtainOpenImage = "/assets/curtain-open.jpg";
 			<span class='script italic'>{wedding.couple.two}</span>
 		</h1>
 		<p
-			class='invitation__copy font-serif font-medium uppercase text-accent tracking-[0.12em] leading-relaxed max-w-[80%] md:max-w-[24rem] pt-8 md:pt-0 mx-auto'
+			class='invitation__copy font-serif font-medium uppercase text-accent tracking-[0.12em] leading-relaxed max-w-[80%] md:max-w-160 pt-8 md:pt-0 mx-auto'
 			data-reveal
 		>
 			{wedding.invitationCopy}
@@ -78,13 +78,13 @@ const curtainOpenImage = "/assets/curtain-open.jpg";
 	}
 
 	.invitation__names {
-		font-size: clamp(3.75rem, 11vw, 6rem);
+		font-size: clamp(0.2rem, 5vw, 1rem);
 		line-height: 1;
 		margin: 0 0 var(--space-6);
 	}
 
 	.invitation__amp {
-		font-size: clamp(2rem, 11vw, 5rem);
+		font-size: clamp(2rem, 7vw, 3rem);
 		font-weight: 400;
 		opacity: 0.9;
 		margin: 0.05em 0;
