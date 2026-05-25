@@ -20,102 +20,104 @@ const venueIllustration = "/assets/venue-illustration.png";
 		>
 			<div class='flex flex-col gap-2 items-center'>
 				<div
-					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-40 md:w-40 aspect-square py-4 px-1 border border-accent rounded-md'
+					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-32 md:w-32 aspect-square py-4 px-1 border border-accent rounded-md'
 				>
 					<span
 						data-unit='days'
-						class='font-serif font-medium text-accent leading-none text-2xl'
+						class='font-serif font-medium text-accent leading-none text-2xl md:text-4xl'
 						>00</span
 					>
 				</div>
 
 				<small
-					class='font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent'
+					class='font-serif text-[0.6rem] md:text-base tracking-[0.2em] uppercase text-accent'
 					>Days</small
 				>
 			</div>
 
 			<div class='flex flex-col gap-2 items-center'>
 				<div
-					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-40 md:w-40 aspect-square py-4 px-1 border border-accent rounded-md'
+					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-32 md:w-32 aspect-square py-4 px-1 border border-accent rounded-md'
 				>
 					<span
 						data-unit='hours'
-						class='font-serif font-medium text-accent leading-none text-2xl'
+						class='font-serif font-medium text-accent leading-none text-2xl md:text-4xl'
 						>00</span
 					>
 				</div>
 
 				<small
-					class='font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent'
+					class='font-serif text-[0.6rem] md:text-base tracking-[0.2em] uppercase text-accent'
 					>Hours</small
 				>
 			</div>
 
 			<div class='flex flex-col gap-2 items-center'>
 				<div
-					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-40 md:w-40 aspect-square py-4 px-1 border border-accent rounded-md'
+					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-32 md:w-32 aspect-square py-4 px-1 border border-accent rounded-md'
 				>
 					<span
 						data-unit='minutes'
-						class='font-serif font-medium text-accent leading-none text-2xl'
+						class='font-serif font-medium text-accent leading-none text-2xl md:text-4xl'
 						>00</span
 					>
 				</div>
 
 				<small
-					class='font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent'
+					class='font-serif text-[0.6rem] md:text-base tracking-[0.2em] uppercase text-accent'
 					>Min</small
 				>
 			</div>
 
 			<div class='flex flex-col gap-2 items-center'>
 				<div
-					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-40 md:w-40 aspect-square py-4 px-1 border border-accent rounded-md'
+					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-32 md:w-32 aspect-square py-4 px-1 border border-accent rounded-md'
 				>
 					<span
 						data-unit='seconds'
-						class='font-serif font-medium text-accent leading-none text-2xl'
+						class='font-serif font-medium text-accent leading-none text-2xl md:text-4xl'
 						>00</span
 					>
 				</div>
 
 				<small
-					class='font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent'
+					class='font-serif text-[0.6rem] md:text-base tracking-[0.2em] uppercase text-accent'
 					>Sec</small
 				>
 			</div>
 		</div>
 
 		<p
-			class='countdown__caption font-serif font-semibold text-accent mt-10! mb-24!'
+			class='countdown__caption font-serif font-semibold text-accent mt-10! mb-24! lg:text-lg xl:text-xl'
 		>
 			until the big day
 		</p>
 
 		<p
-			class='countdown__eyebrow font-serif font-semibold text-base uppercase text-center text-accent mt-0 mb-6 max-w-88 mx-auto leading-relaxed'
+			class='countdown__eyebrow font-serif font-semibold text-base uppercase text-center text-accent mt-0 mb-6 max-w-88 mx-auto leading-relaxed md:text-lg lg:max-w-100 lg:text-2xl'
 			data-reveal
 		>
 			The celebration will take place at
 		</p>
 
-		<div class='venue max-w-xl mx-auto' data-reveal>
+		<div class='venue max-w-xl mx-auto lg:max-w-3xl' data-reveal>
 			<img
-				class='venue__art max-w-[18rem] w-6/7 mx-auto mb-6 opacity-95'
+				class='venue__art max-w-[18rem] w-6/7 md:max-w-2xl mx-auto mb-6 opacity-95'
 				src={venueIllustration}
 				alt={wedding.venue.name}
 				onerror="this.style.display='none'"
 			/>
-			<h3 class='script text-accent mb-3 leading-[1.1] text-2xl'>
+			<h3 class='script text-accent mb-3 leading-[1.1] text-2xl md:text-4xl'>
 				{wedding.venue.name}
 			</h3>
 			<p
-				class='venue__address font-serif tracking-[0.22em] uppercase text-accent m-0 mb-4'
+				class='venue__address font-serif tracking-[0.22em] uppercase text-accent m-0 mb-4 md:text-xl'
 			>
 				{wedding.venue.address}
 			</p>
-			<p class='venue__time font-serif italic text-accent mt-10! text-base'>
+			<p
+				class='venue__time font-serif italic text-accent mt-10! text-base md:text-lg lg:text-2xl'
+			>
 				{wedding.dateDisplay.month}
 				{wedding.dateDisplay.day}, {wedding.dateDisplay.year} · {
 					wedding.venue.time
