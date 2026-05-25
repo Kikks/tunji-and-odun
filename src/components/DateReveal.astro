@@ -17,6 +17,7 @@ const items = [
 	<div class='container text-center'>
 		<div
 			class='date-reveal__hint flex flex-col items-center gap-3 mb-12'
+			id='date-hint'
 			aria-hidden='true'
 		>
 			<span
@@ -32,7 +33,7 @@ const items = [
 		</div>
 
 		<h2 class='date-reveal__title text-accent mb-3 leading-none'>
-			<span class='script'>Reveal</span>
+			<span class='script italic'>Reveal</span>
 		</h2>
 		<p
 			class='date-reveal__subtitle text-lg font-serif uppercase font-bold text-accent m-0 mb-12'
@@ -62,7 +63,7 @@ const items = [
 		</div>
 
 		<p class='date-reveal__message text-accent mt-10!' id='date-message'>
-			<span class='script'>We're getting married!</span>
+			<span class='script italic'>We're getting married!</span>
 		</p>
 	</div>
 </section>
@@ -72,6 +73,19 @@ const items = [
 	.date-reveal {
 		min-height: 100vh;
 		min-height: 100svh;
+	}
+
+	/* Hint fades out on first scratch — kept in layout so cards don't jump. */
+	.date-reveal__hint {
+		transition:
+			opacity 0.45s var(--ease-out),
+			visibility 0s linear 0.45s;
+	}
+
+	.date-reveal__hint.is-dismissed {
+		opacity: 0;
+		pointer-events: none;
+		visibility: hidden;
 	}
 
 	/* Pseudo-element ripple rings — Tailwind has no expressive ::before/::after
@@ -224,6 +238,7 @@ const items = [
 		const finishReveal = () => {
 			if (unlocked) return;
 			unlocked = true;
+			hint?.classList.add("is-dismissed");
 			showMessage();
 			if (!reduce) {
 				try {
@@ -243,6 +258,8 @@ const items = [
 				finishReveal();
 			}
 		};
+
+		const hint = document.getElementById("date-hint");
 
 		canvases.forEach(canvas => {
 			const parent = canvas.parentElement as HTMLElement | null;

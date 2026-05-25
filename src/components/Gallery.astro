@@ -1,0 +1,89 @@
+---
+import DomeGallery from "./DomeGallery.jsx";
+
+// f_auto = browser-best format (AVIF/WebP/JPEG) — also re-encodes HEIC.
+// q_auto = perceptual quality. c_limit,w_600 = cap at 600px wide, keep aspect.
+const cld = (publicId: string) =>
+	`https://res.cloudinary.com/kikks/image/upload/f_auto,q_auto,c_limit,w_600/${publicId}`;
+
+const photos = [
+	{ src: cld("Tunji-and-odun/IMG_1245_wjuqhq"), alt: "Tunji & Odun" },
+	{ src: cld("Tunji-and-odun/IMG_1138_fjm2ay"), alt: "Tunji & Odun" },
+	{ src: cld("Tunji-and-odun/IMG_1156_zuleqz"), alt: "Tunji & Odun" },
+	{ src: cld("Tunji-and-odun/IMG_0227_ssvlx9"), alt: "Tunji & Odun" },
+	{ src: cld("Tunji-and-odun/IMG_1090_srutum"), alt: "Tunji & Odun" },
+	{ src: cld("Tunji-and-odun/IMG_1243_nynyxr"), alt: "Tunji & Odun" }
+];
+---
+
+<section class='gallery section bg-bg-deep text-center' aria-label='Gallery'>
+	<div class='container flex flex-col items-center text-center'>
+		<p class='eyebrow text-gold'>Through the years</p>
+		<h2 class='script italic font-bold text-accent'>Moments of us</h2>
+		<span class='divider'></span>
+		<p class='gallery__copy text-ink-soft max-w-xl mx-auto mb-10'>
+			Stolen seconds, soft afternoons, and the slow walk that became forever.
+			Drag the dome to wander through ours.
+		</p>
+	</div>
+
+	<div class='gallery__stage relative w-full h-[70vh] md:h-screen'>
+		<DomeGallery
+			client:visible
+			images={photos}
+			overlayBlurColor='#faf8f5'
+			grayscale={true}
+			fit={1}
+			minRadius={600}
+			maxVerticalRotationDeg={0}
+			segments={20}
+			dragDampening={5}
+		/>
+	</div>
+</section>
+
+<style>
+	/* Section padding override — the dome takes full width with no horizontal
+	   gutter, so override .section's padding-inline below the heading block. */
+	.gallery {
+		padding-inline: 0;
+	}
+
+	.gallery > .container {
+		padding-inline: clamp(var(--space-4), 5vw, var(--space-7));
+	}
+</style>
+
+<script>
+	import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
+
+	function run() {
+		if (prefersReducedMotion()) return;
+		const { gsap } = getGsap();
+		gsap.from(
+			[
+				".gallery .eyebrow",
+				".gallery h2",
+				".gallery .divider",
+				".gallery__copy"
+			],
+			{
+				scrollTrigger: { trigger: ".gallery", start: "top 80%" },
+				opacity: 0,
+				y: 24,
+				duration: 0.9,
+				ease: "power3.out",
+				stagger: 0.12
+			}
+		);
+		gsap.from(".gallery__stage", {
+			scrollTrigger: { trigger: ".gallery__stage", start: "top 85%" },
+			opacity: 0,
+			duration: 1.2,
+			ease: "power3.out"
+		});
+	}
+
+	if (document.readyState !== "loading") run();
+	else document.addEventListener("DOMContentLoaded", run);
+</script>

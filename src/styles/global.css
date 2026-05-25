@@ -1,209 +1,208 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #f8f1e4;
-  --color-bg-white: #ffffff;
-  --color-bg-deep: #faf8f5;
-  --color-ink: #1a1a1a;
-  --color-ink-soft: #4a3f35;
-  --color-accent: #6b1e1e;
-  --color-accent-soft: #8a2a2a;
-  --color-gold: #c8a24b;
-  --color-gold-soft: #e0c07a;
+	--color-bg: #f8f1e4;
+	--color-bg-white: #ffffff;
+	--color-bg-deep: #faf8f5;
+	--color-ink: #1a1a1a;
+	--color-ink-soft: #4a3f35;
+	--color-accent: #6b1e1e;
+	--color-accent-soft: #8a2a2a;
+	--color-gold: #c8a24b;
+	--color-gold-soft: #e0c07a;
 
-  --font-serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-  --font-script: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+	--font-serif: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+	--font-script: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+	--font-sans: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
 
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
-  --radius-full: 9999px;
+	--radius-sm: 0.25rem;
+	--radius-md: 0.5rem;
+	--radius-lg: 1rem;
+	--radius-full: 9999px;
 
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+	--ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  --container-narrow: 44rem;
-  --container-wide: 72rem;
+	--container-narrow: 44rem;
+	--container-wide: 72rem;
 
-  --shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.08);
-  --shadow-md: 0 4px 20px rgba(26, 26, 26, 0.08);
-  --shadow-lg: 0 12px 40px rgba(26, 26, 26, 0.12);
+	--shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.08);
+	--shadow-md: 0 4px 20px rgba(26, 26, 26, 0.08);
+	--shadow-lg: 0 12px 40px rgba(26, 26, 26, 0.12);
 }
 
 /* Legacy spacing aliases — Tailwind's default 0.25rem scale already covers
    these; the named vars stay so scoped <style> blocks continue to resolve. */
 :root {
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
-  --space-8: 4rem;
-  --space-9: 6rem;
-  --space-10: 8rem;
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.5rem;
+	--space-6: 2rem;
+	--space-7: 3rem;
+	--space-8: 4rem;
+	--space-9: 6rem;
+	--space-10: 8rem;
 
-  --container: 72rem;
+	--container: 72rem;
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html {
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-  scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: transparent;
+	scroll-behavior: smooth;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
-  min-height: 100%;
+	margin: 0;
+	padding: 0;
+	min-height: 100%;
 }
 
 body {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
-  line-height: 1.6;
-  color: var(--color-ink);
-  background: var(--color-bg);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+	font-family: var(--font-serif);
+	font-weight: 400;
+	font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+	line-height: 1.6;
+	color: var(--color-ink);
+	background: var(--color-bg);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	overflow-x: hidden;
 }
 
 html.is-intro-locked,
 body.is-intro-locked {
-  overflow: hidden !important;
-  overscroll-behavior: none;
+	overflow: hidden !important;
+	overscroll-behavior: none;
 }
 
 html.is-scroll-locked,
 body.is-scroll-locked {
-  overflow: hidden !important;
-  overscroll-behavior: none;
-  touch-action: none;
+	overflow: hidden !important;
+	overscroll-behavior: none;
+	touch-action: none;
 }
 
 img,
 video,
 svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
+	display: block;
+	max-width: 100%;
+	height: auto;
 }
 
 button {
-  font: inherit;
-  color: inherit;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+	font: inherit;
+	color: inherit;
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
 }
 
 button:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-  border-radius: 2px;
+	outline: 2px solid var(--color-accent);
+	outline-offset: 3px;
+	border-radius: 2px;
 }
 
 a {
-  color: var(--color-accent);
-  text-decoration: none;
-  transition: color 0.2s var(--ease-out);
+	color: var(--color-accent);
+	text-decoration: none;
+	transition: color 0.2s var(--ease-out);
 }
 
 a:hover {
-  color: var(--color-accent-soft);
+	color: var(--color-accent-soft);
 }
 
 h1,
 h2,
 h3,
 h4 {
-  margin: 0 0 var(--space-4);
-  font-weight: 500;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+	margin: 0 0 var(--space-4);
+	font-weight: 500;
+	line-height: 1.15;
+	letter-spacing: -0.01em;
 }
 
 h1 {
-  font-size: clamp(2.5rem, 6vw, 4.25rem);
+	font-size: clamp(2.5rem, 6vw, 4.25rem);
 }
 
 h2 {
-  font-size: clamp(1.875rem, 4.5vw, 3rem);
+	font-size: clamp(1.875rem, 4.5vw, 3rem);
 }
 
 h3 {
-  font-size: clamp(1.375rem, 3vw, 1.875rem);
+	font-size: clamp(1.375rem, 3vw, 1.875rem);
 }
 
 p {
-  margin: 0 0 var(--space-4);
+	margin: 0 0 var(--space-4);
 }
 
 .section {
-  position: relative;
-  padding-block: clamp(var(--space-8), 12vw, var(--space-10));
-  padding-inline: clamp(var(--space-4), 5vw, var(--space-7));
+	position: relative;
+	padding-block: clamp(var(--space-8), 12vw, var(--space-10));
+	padding-inline: clamp(var(--space-4), 5vw, var(--space-7));
 }
 
 .container {
-  max-width: var(--container);
-  margin-inline: auto;
+	max-width: var(--container);
+	margin-inline: auto;
 }
 
 .container-narrow {
-  max-width: var(--container-narrow);
-  margin-inline: auto;
+	max-width: var(--container-narrow);
+	margin-inline: auto;
 }
 
 .script {
-  font-family: var(--font-script);
-  font-style: italic;
-  font-weight: 500;
-  letter-spacing: 0.01em;
+	font-family: var(--font-script);
+	font-weight: 500;
+	letter-spacing: 0.01em;
 }
 
 .eyebrow {
-  display: inline-block;
-  font-family: var(--font-sans);
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-gold);
-  margin-bottom: var(--space-4);
+	display: inline-block;
+	font-family: var(--font-sans);
+	font-size: 0.75rem;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--color-gold);
+	margin-bottom: var(--space-4);
 }
 
 .text-center {
-  text-align: center;
+	text-align: center;
 }
 
 .divider {
-  width: 3rem;
-  height: 1px;
-  background: var(--color-gold);
-  margin: var(--space-5) auto;
+	width: 3rem;
+	height: 1px;
+	background: var(--color-gold);
+	margin: var(--space-5) auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
 }

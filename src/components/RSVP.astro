@@ -2,66 +2,67 @@
 import { wedding } from "../config/wedding.ts";
 ---
 
-<section class="rsvp section bg-accent text-bg text-center" aria-label="RSVP">
-  <div class="container-narrow text-center">
-    <p class="eyebrow">Will you join us?</p>
-    <h2>Confirm attendance</h2>
-    <span class="divider"></span>
-    <p class="rsvp__copy text-bg/85 italic max-w-lg mx-auto mb-8">
-      Please let us know whether you will be attending by filling out the short form below.
-    </p>
+<section class='rsvp section bg-accent text-bg text-center' aria-label='RSVP'>
+	<div class='container-narrow text-center flex flex-col items-center'>
+		<p class='eyebrow'>Will you join us?</p>
+		<h2 class='script italic'>Confirm attendance</h2>
+		<span class='divider'></span>
+		<p class='rsvp__copy text-bg/85 max-w-lg mx-auto mb-8'>
+			Please let us know whether you will be attending by filling out the short
+			form below.
+		</p>
 
-    <a
-      class="rsvp__button inline-block font-sans text-[0.85rem] tracking-[0.15em] uppercase py-4 px-8 border border-gold rounded-full text-gold-soft bg-transparent hover:bg-gold hover:text-accent hover:-translate-y-0.5"
-      href={wedding.rsvpFormUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      data-reveal
-    >
-      Confirm my attendance
-    </a>
-  </div>
+		<a
+			class='rsvp__button inline-block font-sans text-[0.85rem] tracking-[0.15em] uppercase font-bold py-4 px-8 border border-gold! rounded-full text-gold-soft! bg-transparent duration-300 hover:bg-gold! hover:text-accent! hover:-translate-y-0.5'
+			href={wedding.rsvpFormUrl}
+			target='_blank'
+			rel='noopener noreferrer'
+			data-reveal
+		>
+			Confirm my attendance
+		</a>
+	</div>
 </section>
 
 <style>
-  /* Section-scoped overrides for global .eyebrow / h2 / .divider colors. */
-  .rsvp :global(.eyebrow) {
-    color: var(--color-gold-soft);
-  }
+	/* Section-scoped overrides for global .eyebrow / h2 / .divider colors. */
+	.rsvp :global(.eyebrow) {
+		color: var(--color-gold-soft);
+	}
 
-  .rsvp h2 {
-    color: var(--color-bg);
-  }
+	.rsvp h2 {
+		color: var(--color-bg);
+	}
 
-  .rsvp :global(.divider) {
-    background: var(--color-gold-soft);
-  }
-
-  /* Multi-property transition (background + color: 250ms, transform: 200ms)
-     — Tailwind can't express per-property durations in utilities. */
-  .rsvp__button {
-    transition:
-      background 0.25s var(--ease-out),
-      color 0.25s var(--ease-out),
-      transform 0.2s var(--ease-out);
-  }
+	.rsvp :global(.divider) {
+		background: var(--color-gold-soft);
+	}
 </style>
 
 <script>
-  import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
+	import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
 
-  function run() {
-    if (prefersReducedMotion()) return;
-    const { gsap } = getGsap();
-    gsap.from(".rsvp__button", {
-      scrollTrigger: { trigger: ".rsvp", start: "top 75%" },
-      opacity: 0,
-      y: 20,
-      duration: 0.8,
-      ease: "power3.out",
-    });
-  }
+	function run() {
+		if (prefersReducedMotion()) return;
+		const { gsap } = getGsap();
+		gsap.from([".rsvp .eyebrow", ".rsvp h2", ".rsvp .divider", ".rsvp__copy"], {
+			scrollTrigger: { trigger: ".rsvp", start: "top 80%" },
+			opacity: 0,
+			y: 24,
+			duration: 0.9,
+			ease: "power3.out",
+			stagger: 0.12
+		});
+		gsap.from(".rsvp__button", {
+			scrollTrigger: { trigger: ".rsvp", start: "top 75%" },
+			opacity: 0,
+			y: 20,
+			duration: 0.8,
+			ease: "power3.out",
+			delay: 0.4
+		});
+	}
 
-  if (document.readyState !== "loading") run();
-  else document.addEventListener("DOMContentLoaded", run);
+	if (document.readyState !== "loading") run();
+	else document.addEventListener("DOMContentLoaded", run);
 </script>

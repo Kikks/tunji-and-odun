@@ -4,165 +4,238 @@ import { wedding } from "../config/wedding.ts";
 const venueIllustration = "/assets/venue-illustration.png";
 ---
 
-<section class="countdown section bg-bg text-center" aria-label="Countdown and venue">
-  <div class="container text-center">
-    <h2 class="countdown__title text-accent mb-8 leading-none">
-      <span class="script">Countdown</span>
-    </h2>
+<section
+	class='countdown section bg-bg-white text-center'
+	aria-label='Countdown and venue'
+>
+	<div class='container flex flex-col items-center text-center'>
+		<h2 class='countdown__title text-accent mb-12! leading-none'>
+			<span class='script italic'>Countdown</span>
+		</h2>
 
-    <div
-      class="countdown__row grid grid-cols-4 max-w-md mx-auto mb-4"
-      data-countdown
-      data-target={wedding.dateISO}
-    >
-      <div class="countdown__cell flex flex-col items-center justify-center gap-2 aspect-square py-4 px-1 border border-accent rounded-sm">
-        <span data-unit="days" class="font-serif font-medium text-accent leading-none">00</span>
-        <small class="font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent">Days</small>
-      </div>
-      <div class="countdown__cell flex flex-col items-center justify-center gap-2 aspect-square py-4 px-1 border border-accent rounded-sm">
-        <span data-unit="hours" class="font-serif font-medium text-accent leading-none">00</span>
-        <small class="font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent">Hours</small>
-      </div>
-      <div class="countdown__cell flex flex-col items-center justify-center gap-2 aspect-square py-4 px-1 border border-accent rounded-sm">
-        <span data-unit="minutes" class="font-serif font-medium text-accent leading-none">00</span>
-        <small class="font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent">Min</small>
-      </div>
-      <div class="countdown__cell flex flex-col items-center justify-center gap-2 aspect-square py-4 px-1 border border-accent rounded-sm">
-        <span data-unit="seconds" class="font-serif font-medium text-accent leading-none">00</span>
-        <small class="font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent">Sec</small>
-      </div>
-    </div>
+		<div
+			class='countdown__row flex max-w-md mx-auto gap-3 items-center justify-center'
+			data-countdown
+			data-target={wedding.dateISO}
+		>
+			<div class='flex flex-col gap-2 items-center'>
+				<div
+					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-40 md:w-40 aspect-square py-4 px-1 border border-accent rounded-md'
+				>
+					<span
+						data-unit='days'
+						class='font-serif font-medium text-accent leading-none text-2xl'
+						>00</span
+					>
+				</div>
 
-    <p class="countdown__caption font-serif italic text-accent m-0 mb-24">until the big day</p>
+				<small
+					class='font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent'
+					>Days</small
+				>
+			</div>
 
-    <p
-      class="countdown__eyebrow font-serif tracking-[0.26em] uppercase text-accent mt-0 mb-6 max-w-[22rem] mx-auto leading-relaxed"
-      data-reveal
-    >
-      The celebration will take place at
-    </p>
+			<div class='flex flex-col gap-2 items-center'>
+				<div
+					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-40 md:w-40 aspect-square py-4 px-1 border border-accent rounded-md'
+				>
+					<span
+						data-unit='hours'
+						class='font-serif font-medium text-accent leading-none text-2xl'
+						>00</span
+					>
+				</div>
 
-    <div class="venue max-w-lg mx-auto" data-reveal>
-      <img
-        class="venue__art max-w-[18rem] w-4/5 mx-auto mb-6 opacity-95"
-        src={venueIllustration}
-        alt={wedding.venue.name}
-        onerror="this.style.display='none'"
-      />
-      <h3 class="venue__name script text-accent mb-3 leading-[1.1]">{wedding.venue.name}</h3>
-      <p class="venue__address font-serif tracking-[0.22em] uppercase text-accent m-0 mb-4">
-        {wedding.venue.address}
-      </p>
-      <p class="venue__time font-serif italic text-accent m-0">
-        {wedding.dateDisplay.month} {wedding.dateDisplay.day}, {wedding.dateDisplay.year} · {wedding.venue.time}
-      </p>
-    </div>
-  </div>
+				<small
+					class='font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent'
+					>Hours</small
+				>
+			</div>
+
+			<div class='flex flex-col gap-2 items-center'>
+				<div
+					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-40 md:w-40 aspect-square py-4 px-1 border border-accent rounded-md'
+				>
+					<span
+						data-unit='minutes'
+						class='font-serif font-medium text-accent leading-none text-2xl'
+						>00</span
+					>
+				</div>
+
+				<small
+					class='font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent'
+					>Min</small
+				>
+			</div>
+
+			<div class='flex flex-col gap-2 items-center'>
+				<div
+					class='countdown__cell flex flex-col items-center justify-center gap-2 h-20 w-20 md:h-40 md:w-40 aspect-square py-4 px-1 border border-accent rounded-md'
+				>
+					<span
+						data-unit='seconds'
+						class='font-serif font-medium text-accent leading-none text-2xl'
+						>00</span
+					>
+				</div>
+
+				<small
+					class='font-serif text-[0.6rem] tracking-[0.2em] uppercase text-accent'
+					>Sec</small
+				>
+			</div>
+		</div>
+
+		<p
+			class='countdown__caption font-serif font-semibold text-accent mt-10! mb-24!'
+		>
+			until the big day
+		</p>
+
+		<p
+			class='countdown__eyebrow font-serif font-semibold text-base uppercase text-center text-accent mt-0 mb-6 max-w-88 mx-auto leading-relaxed'
+			data-reveal
+		>
+			The celebration will take place at
+		</p>
+
+		<div class='venue max-w-xl mx-auto' data-reveal>
+			<img
+				class='venue__art max-w-[18rem] w-6/7 mx-auto mb-6 opacity-95'
+				src={venueIllustration}
+				alt={wedding.venue.name}
+				onerror="this.style.display='none'"
+			/>
+			<h3 class='script text-accent mb-3 leading-[1.1] text-2xl'>
+				{wedding.venue.name}
+			</h3>
+			<p
+				class='venue__address font-serif tracking-[0.22em] uppercase text-accent m-0 mb-4'
+			>
+				{wedding.venue.address}
+			</p>
+			<p class='venue__time font-serif italic text-accent mt-10! text-base'>
+				{wedding.dateDisplay.month}
+				{wedding.dateDisplay.day}, {wedding.dateDisplay.year} · {
+					wedding.venue.time
+				}
+			</p>
+		</div>
+	</div>
 </section>
 
 <style>
-  /* clamp()-based fluid sizing and tabular-nums — not expressible as utilities. */
-  .countdown__title {
-    font-size: clamp(2.75rem, 8vw, 4.5rem);
-  }
+	/* clamp()-based fluid sizing and tabular-nums — not expressible as utilities. */
+	.countdown__title {
+		font-size: clamp(2.75rem, 8vw, 4.5rem);
+	}
 
-  .countdown__row {
-    gap: clamp(var(--space-2), 2vw, var(--space-4));
-  }
-
-  .countdown__cell span {
-    font-size: clamp(1.5rem, 6vw, 2.25rem);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .countdown__caption {
-    font-size: clamp(0.85rem, 2vw, 1rem);
-  }
-
-  .countdown__eyebrow {
-    font-size: clamp(0.7rem, 1.6vw, 0.85rem);
-  }
-
-  .venue__name {
-    font-size: clamp(2.25rem, 6vw, 3rem);
-  }
-
-  .venue__address {
-    font-size: clamp(0.7rem, 1.6vw, 0.85rem);
-  }
-
-  .venue__time {
-    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-  }
+	.countdown__cell span {
+		font-variant-numeric: tabular-nums;
+	}
 </style>
 
 <script>
-  import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
+	import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
 
-  function pad(value: number) {
-    return value.toString().padStart(2, "0");
-  }
+	function pad(value: number) {
+		return value.toString().padStart(2, "0");
+	}
 
-  function run() {
-    const root = document.querySelector<HTMLElement>("[data-countdown]");
-    if (!root) return;
+	function run() {
+		const root = document.querySelector<HTMLElement>("[data-countdown]");
+		if (!root) return;
 
-    const targetISO = root.dataset.target;
-    if (!targetISO) return;
-    const target = new Date(targetISO).getTime();
-    if (Number.isNaN(target)) return;
+		const targetISO = root.dataset.target;
+		if (!targetISO) return;
+		const target = new Date(targetISO).getTime();
+		if (Number.isNaN(target)) return;
 
-    const units = {
-      days: root.querySelector<HTMLElement>('[data-unit="days"]'),
-      hours: root.querySelector<HTMLElement>('[data-unit="hours"]'),
-      minutes: root.querySelector<HTMLElement>('[data-unit="minutes"]'),
-      seconds: root.querySelector<HTMLElement>('[data-unit="seconds"]'),
-    };
+		const units = {
+			days: root.querySelector<HTMLElement>('[data-unit="days"]'),
+			hours: root.querySelector<HTMLElement>('[data-unit="hours"]'),
+			minutes: root.querySelector<HTMLElement>('[data-unit="minutes"]'),
+			seconds: root.querySelector<HTMLElement>('[data-unit="seconds"]')
+		};
 
-    function render() {
-      const diff = target - Date.now();
-      if (diff <= 0) {
-        units.days!.textContent = "00";
-        units.hours!.textContent = "00";
-        units.minutes!.textContent = "00";
-        units.seconds!.textContent = "00";
-        return false;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      units.days!.textContent = pad(days);
-      units.hours!.textContent = pad(hours);
-      units.minutes!.textContent = pad(minutes);
-      units.seconds!.textContent = pad(seconds);
-      return true;
-    }
+		function render() {
+			const diff = target - Date.now();
+			if (diff <= 0) {
+				units.days!.textContent = "00";
+				units.hours!.textContent = "00";
+				units.minutes!.textContent = "00";
+				units.seconds!.textContent = "00";
+				return false;
+			}
+			const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+			const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+			const minutes = Math.floor((diff / (1000 * 60)) % 60);
+			const seconds = Math.floor((diff / 1000) % 60);
+			units.days!.textContent = pad(days);
+			units.hours!.textContent = pad(hours);
+			units.minutes!.textContent = pad(minutes);
+			units.seconds!.textContent = pad(seconds);
+			return true;
+		}
 
-    render();
-    const timer = window.setInterval(() => {
-      if (!render()) window.clearInterval(timer);
-    }, 1000);
+		render();
+		const timer = window.setInterval(() => {
+			if (!render()) window.clearInterval(timer);
+		}, 1000);
 
-    if (prefersReducedMotion()) return;
-    const { gsap } = getGsap();
-    gsap.from(root.closest(".countdown")!.querySelectorAll<HTMLElement>(".countdown__cell"), {
-      scrollTrigger: { trigger: root, start: "top 75%" },
-      opacity: 0,
-      y: 24,
-      stagger: 0.08,
-      duration: 0.8,
-      ease: "power3.out",
-    });
-    gsap.from(".countdown .venue [data-reveal], .countdown__eyebrow", {
-      scrollTrigger: { trigger: ".venue", start: "top 85%" },
-      opacity: 0,
-      y: 20,
-      duration: 0.9,
-      ease: "power3.out",
-    });
-  }
+		if (prefersReducedMotion()) return;
+		const { gsap } = getGsap();
+		gsap.from([".countdown__title", ".countdown__caption"], {
+			scrollTrigger: { trigger: ".countdown", start: "top 80%" },
+			opacity: 0,
+			y: 24,
+			duration: 0.9,
+			ease: "power3.out",
+			stagger: 0.15
+		});
+		gsap.from(
+			root
+				.closest(".countdown")!
+				.querySelectorAll<HTMLElement>(".countdown__cell"),
+			{
+				scrollTrigger: { trigger: root, start: "top 75%" },
+				opacity: 0,
+				y: 24,
+				stagger: 0.08,
+				duration: 0.8,
+				ease: "power3.out"
+			}
+		);
+		// Eyebrow lead-in just before the venue block.
+		gsap.from(".countdown__eyebrow", {
+			scrollTrigger: { trigger: ".countdown__eyebrow", start: "top 85%" },
+			opacity: 0,
+			y: 20,
+			duration: 0.8,
+			ease: "power3.out"
+		});
+		// Venue illustration is the focal point — slight scale gives it weight.
+		gsap.from(".venue__art", {
+			scrollTrigger: { trigger: ".venue", start: "top 85%" },
+			opacity: 0,
+			scale: 0.92,
+			y: 24,
+			duration: 1.0,
+			ease: "power3.out"
+		});
+		// Venue text rows stagger in beneath the image.
+		gsap.from([".venue h3", ".venue__address", ".venue__time"], {
+			scrollTrigger: { trigger: ".venue", start: "top 85%" },
+			opacity: 0,
+			y: 18,
+			duration: 0.8,
+			ease: "power3.out",
+			stagger: 0.12,
+			delay: 0.3
+		});
+	}
 
-  if (document.readyState !== "loading") run();
-  else document.addEventListener("DOMContentLoaded", run);
+	if (document.readyState !== "loading") run();
+	else document.addEventListener("DOMContentLoaded", run);
 </script>

@@ -2,54 +2,136 @@
 import { wedding } from "../config/wedding.ts";
 ---
 
-<section class="thank-you section text-center" aria-label="Thank you">
-  <div class="thank-you__card container-narrow text-center rounded-lg bg-bg-deep shadow-lg">
-    <p class="eyebrow">{wedding.thankYou.heading}</p>
-    <h2 class="script thank-you__names text-accent leading-none">
-      {wedding.couple.one} &amp; {wedding.couple.two}
-    </h2>
-    <p class="thank-you__body text-ink-soft italic max-w-md mx-auto">{wedding.thankYou.body}</p>
-    <span class="divider"></span>
-  </div>
+<section class='thank-you section text-center' aria-label='Thank you'>
+	<div
+		class='thank-you__frame relative bg-accent rounded-xl p-8 md:p-15 mx-auto max-w-md'
+	>
+		<div
+			class='thank-you__card bg-white py-12 px-8 md:py-16 md:px-10 text-center'
+		>
+			<h2 class='script italic text-accent text-3xl md:text-4xl mb-6'>
+				{wedding.thankYou.heading}
+			</h2>
+			<p
+				class='thank-you__body text-accent text-sm md:text-base leading-relaxed mb-6 mx-auto'
+			>
+				{wedding.thankYou.body}
+			</p>
+			<p class='script italic text-accent text-2xl md:text-3xl'>
+				{wedding.couple.one} &amp; {wedding.couple.two}
+			</p>
+		</div>
+	</div>
 </section>
 
 <style>
-  /* Radial-gradient background overlaid on cream — gradient stops aren't a
-     Tailwind utility shape. Also overrides .section's padding-bottom. */
-  .thank-you {
-    background:
-      radial-gradient(circle at 50% 100%, rgba(200, 162, 75, 0.16), transparent 70%),
-      var(--color-bg);
-    padding-bottom: clamp(var(--space-9), 16vw, var(--space-10));
-  }
+	/* Radial-gradient background overlaid on cream — gradient stops aren't a
+	   Tailwind utility shape. */
+	.thank-you {
+		background:
+			radial-gradient(
+				circle at 50% 100%,
+				rgba(200, 162, 75, 0.16),
+				transparent 70%
+			),
+			var(--color-bg);
+		padding-bottom: clamp(var(--space-9), 16vw, var(--space-10));
+	}
 
-  /* Fluid card padding — clamp() not expressible as a utility. */
-  .thank-you__card {
-    padding: clamp(var(--space-7), 10vw, var(--space-9)) clamp(var(--space-5), 6vw, var(--space-7));
-  }
-
-  .thank-you__names {
-    font-size: clamp(3rem, 9vw, 5.5rem);
-    margin: var(--space-4) 0 var(--space-5);
-  }
+	/* Jagged clip-path — shared by the burgundy frame and the white inner card
+	   so the silhouettes nest precisely. Padding on the frame is what makes the
+	   burgundy "border" appear around the white card. */
+	.thank-you__card {
+		clip-path: polygon(
+			0% 8%,
+			4% 4%,
+			8% 0%,
+			15% 2%,
+			22% 0%,
+			29% 2%,
+			36% 0%,
+			43% 2%,
+			50% 0%,
+			57% 2%,
+			64% 0%,
+			71% 2%,
+			78% 0%,
+			85% 2%,
+			92% 0%,
+			96% 4%,
+			100% 8%,
+			98% 15%,
+			100% 22%,
+			98% 29%,
+			100% 36%,
+			98% 43%,
+			100% 50%,
+			98% 57%,
+			100% 64%,
+			98% 71%,
+			100% 78%,
+			98% 85%,
+			100% 92%,
+			96% 96%,
+			92% 100%,
+			85% 98%,
+			78% 100%,
+			71% 98%,
+			64% 100%,
+			57% 98%,
+			50% 100%,
+			43% 98%,
+			36% 100%,
+			29% 98%,
+			22% 100%,
+			15% 98%,
+			8% 100%,
+			4% 96%,
+			0% 92%,
+			2% 85%,
+			0% 78%,
+			2% 71%,
+			0% 64%,
+			2% 57%,
+			0% 50%,
+			2% 43%,
+			0% 36%,
+			2% 29%,
+			0% 22%,
+			2% 15%
+		);
+	}
 </style>
 
 <script>
-  import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
+	import { getGsap, prefersReducedMotion } from "../lib/gsap.ts";
 
-  function run() {
-    if (prefersReducedMotion()) return;
-    const { gsap } = getGsap();
-    gsap.from(".thank-you__card > *", {
-      scrollTrigger: { trigger: ".thank-you__card", start: "top 80%" },
-      opacity: 0,
-      y: 24,
-      duration: 0.9,
-      ease: "power3.out",
-      stagger: 0.12,
-    });
-  }
+	function run() {
+		if (prefersReducedMotion()) return;
+		const { gsap } = getGsap();
+		const tl = gsap.timeline({
+			scrollTrigger: { trigger: ".thank-you", start: "top 80%" }
+		});
+		tl.from(".thank-you__frame", {
+			opacity: 0,
+			scale: 0.92,
+			y: 30,
+			duration: 1.0,
+			ease: "power3.out"
+		});
+		tl.from(
+			".thank-you__card > *",
+			{
+				opacity: 0,
+				y: 20,
+				duration: 0.7,
+				ease: "power3.out",
+				stagger: 0.12
+			},
+			"-=0.5"
+		);
+	}
 
-  if (document.readyState !== "loading") run();
-  else document.addEventListener("DOMContentLoaded", run);
+	if (document.readyState !== "loading") run();
+	else document.addEventListener("DOMContentLoaded", run);
 </script>
