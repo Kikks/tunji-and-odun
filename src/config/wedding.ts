@@ -12,12 +12,12 @@ export const wedding = {
 	invitationCopy:
 		"We would like to invite you to celebrate with us the most special day of our lives. It would be an honour to have you present at this important moment.",
 	venue: {
-		name: "GLT Campground",
-		address: "Alomaja, Idi Ayunre, Ibadan",
+		name: "GLT Ife Auditorium",
+		address: "Opposite Diganga Anex, Ile-Ife, Osun state",
 		time: "10:00 AM",
 		mapEmbedUrl:
-			"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.60347143213!2d3.860704975614751!3d7.285875913833506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10398f17970eb341%3A0x50c9dc383c19e88!2sGLT%20CAMP%20GROUND!5e0!3m2!1sen!2sng!4v1779670821848!5m2!1sen!2sng",
-		mapLinkUrl: "https://maps.app.goo.gl/5NNrqEv3cJaHr3gy8"
+			"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.721016204566!2d4.516799975615648!3d7.496022311097267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103837d604e13543%3A0xb8706988e61eb305!2sGod&#39;s%20Love%20Tabernacle%20International%20Church%2C%20Ile-Ife!5e0!3m2!1sen!2suk!4v1780078559901!5m2!1sen!2suk",
+		mapLinkUrl: "https://maps.app.goo.gl/7NPAvmbAA3WGYRH47"
 	},
 	menu: [
 		{ title: "Appetisers", description: "Seasonal canapés and amuse-bouches." },
